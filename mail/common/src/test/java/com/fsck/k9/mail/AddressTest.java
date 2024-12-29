@@ -27,11 +27,11 @@ public class AddressTest {
      */
     @Test
     public void parse_withValidEmailAndPersonal_shouldSetBoth() {
-        Address[] addresses = Address.parse("Max Mustermann <maxmuster@mann.com>");
+        Address[] addresses = Address.parse("Max Mustermann [via Relay] <maxmuster@mann.com>");
 
         assertEquals(1, addresses.length);
         assertEquals("maxmuster@mann.com", addresses[0].getAddress());
-        assertEquals("Max Mustermann", addresses[0].getPersonal());
+        assertEquals("Max Mustermann [via Relay]", addresses[0].getPersonal());
     }
 
     /**
@@ -44,6 +44,18 @@ public class AddressTest {
         assertEquals(1, addresses.length);
         assertEquals("alias@relay.firefox.com", addresses[0].getAddress());
         assertEquals("original@email.org [via Relay]", addresses[0].getPersonal());
+    }
+
+    /**
+     * test relay + valid email
+     */
+    @Test
+    public void parse_withValidEmailAndShortRelay_shouldSetBoth() {
+        Address[] addresses = Address.parse("original@email.org <alias@relay.firefox.com>");
+
+        assertEquals(1, addresses.length);
+        assertEquals("alias@relay.firefox.com", addresses[0].getAddress());
+        assertEquals("original@email.org", addresses[0].getPersonal());
     }
 
     @Test

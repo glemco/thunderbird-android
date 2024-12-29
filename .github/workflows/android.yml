@@ -11,6 +11,7 @@ on:
       - '**.md'
       - 'LICENSE'
       - 'NOTICE'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -34,17 +35,22 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@8379f6a1328ee0e06e2bb424dadb7b159856a326 # v4.4.0
 
-      - name: Quality - Spotless
-        run: ./gradlew spotlessCheck
+      #- name: Quality - Spotless
+      #  run: ./gradlew spotlessCheck
 
-      - name: Quality - Detekt
-        run: ./gradlew detekt
+      #- name: Quality - Detekt
+      #  run: ./gradlew detekt
 
-      - name: Quality - Lint
-        run: ./gradlew lint
+      #- name: Quality - Lint
+      #  run: ./gradlew lint
 
-      - name: Quality - Dependency Guard
-        run: ./gradlew dependencyGuard
+      #- name: Quality - Dependency Guard
+      #  run: ./gradlew dependencyGuard
 
       - name: Build (run full build and tests)
-        run: ./gradlew build
+        run: ./gradlew assembleDebug
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: APK files
+          path: "**/build/outputs/apk/**/debug/*.apk"

@@ -44,6 +44,18 @@ public class AddressTest {
         assertEquals("Max Mustermann", addresses[0].getPersonal());
     }
 
+    /**
+     * test relay + valid email
+     */
+    @Test
+    public void parse_withValidEmailAndRelay_shouldSetBoth() {
+        Address[] addresses = Address.parse("original@email.org [via Relay] <alias@relay.firefox.com>");
+
+        assertEquals(1, addresses.length);
+        assertEquals("alias@relay.firefox.com", addresses[0].getAddress());
+        assertEquals("original@email.org [via Relay]", addresses[0].getPersonal());
+    }
+
     @Test
     public void parse_withUnusualEmails_shouldSetAddress() {
         String[] testEmails = new String [] {

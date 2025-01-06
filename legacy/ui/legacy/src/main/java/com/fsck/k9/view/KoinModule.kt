@@ -1,6 +1,7 @@
 package com.fsck.k9.view
 
 import com.fsck.k9.helper.ReplyToParser
+import com.fsck.k9.mail.UserInputEmailAddressParser
 import com.fsck.k9.mailstore.AttachmentResolver
 import com.fsck.k9.message.ReplyActionStrategy
 import com.fsck.k9.ui.helper.RelativeDateTimeFormatter

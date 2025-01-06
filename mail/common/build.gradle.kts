@@ -22,6 +22,7 @@ dependencies {
 
     // We're only using this for its DefaultHostnameVerifier
     implementation(libs.apache.httpclient5)
+    implementation(projects.core.common)
 
     testImplementation(projects.core.logging.testing)
     testImplementation(projects.mail.testing)

@@ -28,6 +28,8 @@ public class Address implements Serializable {
      */
     private static final Address[] EMPTY_ADDRESS_ARRAY = new Address[0];
 
+    static private final UserInputEmailAddressParser emailAddressParser = new UserInputEmailAddressParser();
+
     @NotNull
     private String mAddress;
 
@@ -143,8 +145,12 @@ public class Address implements Serializable {
                 addresses.add(new Address(mailbox.getLocalPart() + "@" + mailbox.getDomain(), mailbox.getName(), false));
             }
         } catch (MimeException pe) {
-            Log.e(pe, "MimeException in Address.parse()");
-            // broken addresses are never added to the resulting array
+            // fallback for unconventional addresses
+            try {
+                addresses = emailAddressParser.parse(addressList);
+            } catch (NonAsciiEmailAddressException ne) {
+                Log.e(pe, "MimeException in Address.parse()");
+            }
         }
         return addresses.toArray(EMPTY_ADDRESS_ARRAY);
     }

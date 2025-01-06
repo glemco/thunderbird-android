@@ -1,7 +1,6 @@
-package com.fsck.k9.view
+package com.fsck.k9.mail
 
 import app.k9mail.core.common.net.HostNameUtils
-import com.fsck.k9.mail.Address
 import org.apache.james.mime4j.util.CharsetUtil
 
 /**
@@ -10,7 +9,7 @@ import org.apache.james.mime4j.util.CharsetUtil
  * TODO: Build a custom implementation that can deal with typical inputs from users who are not familiar with the
  *  RFC 5322 address-list syntax. See (ignored) tests in `UserInputEmailAddressParserTest`.
  */
-internal class UserInputEmailAddressParser {
+class UserInputEmailAddressParser {
 
     @Throws(NonAsciiEmailAddressException::class)
     fun parse(input: String): List<Address> {
@@ -32,4 +31,4 @@ internal class UserInputEmailAddressParser {
     private fun Address.isInvalidDomainPart() = HostNameUtils.isLegalHostNameOrIP(hostname) == null
 }
 
-internal class NonAsciiEmailAddressException(message: String) : Exception(message)
+class NonAsciiEmailAddressException(message: String) : Exception(message)
